@@ -4,22 +4,20 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Student } from '../../models/student';
 import { StudentsService } from '../../services/students.service';
 
-
 @Component({
-  selector: 'app-add-modal',
-  templateUrl: './add-modal.component.html',
-  styleUrls: ['./add-modal.component.css']
+  selector: 'app-edit-modal',
+  templateUrl: './edit-modal.component.html',
+  styleUrls: ['./edit-modal.component.css']
 })
-export class AddModalComponent {
-
+export class EditModalComponent {
   addStudentForm : FormGroup;
   
   constructor(
-    private dialogRef: MatDialogRef<AddModalComponent>,
+    private dialogRef: MatDialogRef<EditModalComponent>,
     private studentService: StudentsService,
     private dialog : MatDialog
   ){
-    
+   
     let regexOnlyNumbers : string = '^[0-9]+$'
     let controls: any = {
       name : new FormControl('', [Validators.required]),
@@ -86,4 +84,8 @@ export class AddModalComponent {
   closeModal(){
     const dialogRef = this.dialog.closeAll()
   }
+
 }
+
+
+

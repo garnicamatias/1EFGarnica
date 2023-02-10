@@ -16,6 +16,9 @@ import { BooleanToTextPipe } from './pipes/boolean-to-text.pipe';
 import { StudentsTableComponent } from './components/students-table/students-table.component';
 import { ActionButtonsComponent } from './components/action-buttons/action-buttons.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { TitlesStyledDirective } from './directives/titles-styled.directive';
+import { StudentsService } from './services/students.service';
+import { EditModalComponent } from './components/edit-modal/edit-modal.component';
 
 
 @NgModule({
@@ -32,6 +35,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     BooleanToTextPipe,
     StudentsTableComponent,
     ActionButtonsComponent,
+    TitlesStyledDirective,
+    EditModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +45,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [StudentsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

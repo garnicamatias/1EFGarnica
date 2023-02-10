@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Student } from '../../models/student';
+import { Component} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddModalComponent } from '../add-modal/add-modal.component';
 
@@ -9,9 +8,7 @@ import { AddModalComponent } from '../add-modal/add-modal.component';
   styleUrls: ['./action-buttons.component.css']
 })
 export class ActionButtonsComponent {
-  @Output() newStudent = new EventEmitter<Student>;
 
-  
   constructor (private dialog : MatDialog){
     
   }

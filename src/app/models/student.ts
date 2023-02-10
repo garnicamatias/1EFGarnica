@@ -8,5 +8,5 @@ export interface Student{
     age: number;
     isActive: boolean;
     gender: string;
-    subjects: string[];
+    subject: string;
 }
