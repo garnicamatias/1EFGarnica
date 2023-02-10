@@ -1,0 +1,19 @@
+*{
+    font-size: 12px;
+}
+
+.studentInactive{
+    color: red;
+    font-weight: bold
+}
+
+.studentActive{
+    color: green;
+    font-weight: bold;
+}
+
+
+th{
+    font-size: 14px;
+}
+

@@ -1,0 +1,108 @@
+<h1 mat-dialog-title>Añadir Estudiante</h1>
+<div mat-dialog-content>
+    <form [formGroup]="addStudentForm" (ngSubmit)="addStudent()">
+    
+        <div class="mb-3">
+            <label for="inputName" class="form-label">Nombre</label>
+            <input formControlName="name" type="text" [ngClass]="getClass('name')" class="form-control" id="inputName">
+            <div *ngIf="requiredAlert('name')" class="invalidInputText">Este campo es requerido</div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="inputSurname" class="form-label">Apellido</label>
+            <input formControlName="surname" type="text" [ngClass]="getClass('surname')" class="form-control" id="inputSurname">
+            <div *ngIf="requiredAlert('surname')" class="invalidInputText">Este campo es requerido</div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="inputId" class="form-label">N° de Legajo</label>
+            <input formControlName="id" type="text" [ngClass]="getClass('id')" class="form-control" id="inputId">
+            <div *ngIf="requiredAlert('id')" class="invalidInputText">Este campo es requerido</div>
+            <div *ngIf="addStudentForm.controls['id'].errors?.['minlength'] || addStudentForm.controls['id'].errors?.['maxlength'] " class="invalidInputText">Debe contener entre 5 y 15 caracteres</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="inputAge" class="form-label">Edad</label>
+            <input formControlName="age" type="text" [ngClass]="getClass('age')" class="form-control" id="inputAge">
+            <div *ngIf="requiredAlert('age')" class="invalidInputText">Este campo es requerido</div>
+            <div *ngIf="addStudentForm.controls['age'].errors?.['minlength'] || addStudentForm.controls['age'].errors?.['maxlength'] " class="invalidInputText">Debe contener entre 5 y 15 caracteres</div>
+        </div>
+
+        <p>Condición de la/el Estudiante:</p>
+        <div class="mb-3 form-check inputRadioContainer">
+            <div>
+                <input formControlName="isActive" type="radio" class="form-check-input" name="isActive" id="active" value="active">
+                <label class="form-check-label" for="active">Activo</label>
+            </div>
+            <div>
+                <input formControlName="isActive" type="radio" class="form-check-input" name="isActive" id="notActive" value="notActive">
+                <label class="form-check-label" for="notActive">Pasivo</label>
+            </div>
+        </div>
+
+        <p>Género</p>
+        <div class="mb-3 form-check inputRadioContainer">
+            <div>
+                <input formControlName="gender" type="radio" class="form-check-input" name="gender" id="M" value="M">
+                <label class="form-check-label" for="M">Masculino</label>
+            </div>
+            <div>
+                <input formControlName="gender" type="radio" class="form-check-input" name="gender" id="F" value="F">
+                <label class="form-check-label" for="F">Femenino</label>
+            </div>
+            <div>
+                <input formControlName="gender" type="radio" class="form-check-input" name="gender" id="X" value="X">
+                <label class="form-check-label" for="X">No Binario</label>
+            </div>
+            <div>
+                <input formControlName="gender" type="radio" class="form-check-input" name="gender" id="NaN" value="NaN">
+                <label class="form-check-label" for="NaN">No Informa</label>
+            </div>
+        </div>
+        
+        <p>Materias</p>
+        <div class="inputCheckContainer">
+        <div class="mb-3 form-check">
+            <input formControlName="subjects" class="form-check-input" type="checkbox" value="Matemática" id="matemática">
+            <label class="form-check-label" for="matemática">
+            Matemática
+            </label>
+        </div>
+        <div class="mb-3 form-check">
+            <input formControlName="subjects" class="form-check-input" type="checkbox" value="Inglés" id="ingles">
+            <label class="form-check-label" for="ingles">
+            Inglés
+            </label>
+        </div>
+        <div class="mb-3 form-check">
+            <input formControlName="subjects" class="form-check-input" type="checkbox" value="Física" id="fisica">
+            <label class="form-check-label" for="fisica">
+            Física
+            </label>
+        </div>
+        <div class="mb-3 form-check">
+            <input formControlName="subjects" class="form-check-input" type="checkbox" value="Geografía" id="geografia">
+            <label class="form-check-label" for="geografia">
+            Geografía
+            </label>
+        </div>
+        <div class="mb-3 form-check">
+            <input formControlName="subjects" class="form-check-input" type="checkbox" value="Educación Fisica" id="edfisica">
+            <label class="form-check-label" for="edfisica">
+            Educación Física
+            </label>
+        </div>
+        <div class="mb-3 form-check">
+            <input formControlName="subjects" class="form-check-input" type="checkbox" value="Diseño" id="disenio">
+            <label class="form-check-label" for="disenio">
+            Diseño
+            </label>
+        </div>
+        </div>
+        
+        </form>
+</div>
+<div class="btnContainer" mat-dialog-actions>
+        <button type="submit" [disabled]="addStudentForm.invalid" class="btn btn-primary">Aceptar</button>
+        <button class="btn btn-primary">Cancelar</button>
+</div>
