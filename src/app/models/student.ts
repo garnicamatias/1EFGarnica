@@ -1,10 +1,10 @@
 
 
 export interface Student{
-
+    id: number,
     name : string;
     surname: string;
-    id: number;
+    fileNumber: number;
     age: number;
     isActive: boolean;
     gender: string;

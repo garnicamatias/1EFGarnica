@@ -24,7 +24,7 @@ export class AddModalComponent {
     let controls: any = {
       name : new FormControl('', [Validators.required]),
       surname : new FormControl('',[Validators.required]),
-      id : new FormControl('',[Validators.required, Validators.pattern(regexOnlyNumbers)]),
+      fileNumber : new FormControl('',[Validators.required, Validators.pattern(regexOnlyNumbers)]),
       age: new FormControl('',[Validators.required, Validators.pattern(regexOnlyNumbers)]),
       isActive : new FormControl('',[Validators.required]),
       gender : new FormControl('', [Validators.required]),
@@ -33,7 +33,9 @@ export class AddModalComponent {
 
     this.addStudentForm = new FormGroup(controls);
   }
- 
+
+  students = this.studentService.getStudents();
+
   getClass(input: string): string{
   
     if (this.addStudentForm.controls[input].valid) {
@@ -48,7 +50,7 @@ export class AddModalComponent {
       return 'invalidInput';
       break;
     
-      case 'id':
+      case 'fileNumber':
       case 'age':
       
       if (this.addStudentForm.controls[input].touched && this.addStudentForm.controls[input].errors?.['required'] || this.addStudentForm.controls[input].errors?.['pattern']) 
@@ -64,15 +66,15 @@ export class AddModalComponent {
     return this.addStudentForm.controls[input].errors?.['required'] && (this.addStudentForm.controls[input].dirty || this.addStudentForm.controls[input].touched)
   }
 
-
   addStudent(){
     let newStudent : Student;
     let booleanValue : boolean;
     this.addStudentForm.value.isActive === "true" ? booleanValue = true : booleanValue = false
     newStudent = {
+      id: this.students[this.students.length-1].id + 1,
       name: this.addStudentForm.value.name,
       surname: this.addStudentForm.value.name,
-      id: this.addStudentForm.value.id,
+      fileNumber: this.addStudentForm.value.fileNumber,
       age: this.addStudentForm.value.age,
       isActive: booleanValue,
       gender: this.addStudentForm.value.gender,

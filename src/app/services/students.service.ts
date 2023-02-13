@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
 import { Student } from '../models/student';
 
 @Injectable({
@@ -7,49 +6,52 @@ import { Student } from '../models/student';
 })
 export class StudentsService {
 
-  private _refresh$ = new Subject<void>()
-
   private students : Student[] = [
     {
+      id: 0,
       name : 'Matias',
       surname: 'Garnica',
-      id: 1533,
+      fileNumber: 1533,
       age: 17,
       isActive: true,
       gender: 'M',
       subject: 'Física'
     },
     {
+      id: 1,
       name : 'Laura',
       surname: 'Espinosa',
-      id: 1256,
+      fileNumber: 1256,
       age: 16,
       isActive: true,
       gender: 'F',
       subject:  'Diseño'
     },
     {
+      id: 2,
       name : 'Juan',
       surname: 'Ramirez',
-      id: 1752,
+      fileNumber: 1752,
       age: 14,
       isActive: false,
       gender: 'M',
       subject: 'Matemática'
     },
     {
+      id: 3,
       name : 'Mariela',
       surname: 'Gomez',
-      id: 1566,
+      fileNumber: 1566,
       age: 15,
       isActive: true,
       gender: 'X',
       subject: 'Inglés'
     },
     {
+      id: 4,
       name : 'Germán',
       surname: 'Mendez',
-      id: 1025,
+      fileNumber: 1025,
       age: 13,
       isActive: false,
       gender: 'M',
@@ -59,9 +61,7 @@ export class StudentsService {
 
   constructor() { }
 
-  get refresh$(){
-    return this._refresh$
-  }
+
   getStudents () : Student[] {
     return this.students
   }
@@ -70,10 +70,12 @@ export class StudentsService {
     this.students.push(newStudent)
   }
 
+  editStudent (newStudent : Student, indexOfElement : number){
+    this.students[indexOfElement] = newStudent;
+  }
+
   deleteStudent(studentId : number){
     this.students = this.students.filter(e => 
       e.id !== studentId)
-    console.log(studentId)
-    console.log(this.students)
   }
 }

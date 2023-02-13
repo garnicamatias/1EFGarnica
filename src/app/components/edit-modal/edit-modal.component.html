@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Editar Estudiante</h1>
 <div mat-dialog-content class="formContainer">
-    <form [formGroup]="addStudentForm" (ngSubmit)="addStudent()">
+    <form [formGroup]="editStudentForm" (ngSubmit)="editStudent()">
     
         <div class="mb-3">
             <label for="inputName" class="form-label">Nombre</label>
@@ -15,28 +15,28 @@
         </div>
         
         <div class="mb-3">
-            <label for="inputId" class="form-label">N° de Legajo</label>
-            <input formControlName="id" type="text" [ngClass]="getClass('id')" class="form-control" id="inputId">
-            <div *ngIf="requiredAlert('id')" class="invalidInputText">Este campo es requerido</div>
-            <div *ngIf="addStudentForm.controls['id'].errors?.['pattern']" class="invalidInputText">Ingresar solamente números</div>
+            <label for="inputFileNumber" class="form-label">N° de Legajo</label>
+            <input formControlName="fileNumber" type="text" [ngClass]="getClass('fileNumber')" class="form-control" id="inputFileeNumber">
+            <div *ngIf="requiredAlert('fileNumber')" class="invalidInputText">Este campo es requerido</div>
+            <div *ngIf="editStudentForm.controls['fileNumber'].errors?.['pattern']" class="invalidInputText">Ingresar solamente números</div>
         </div>
 
         <div class="mb-3">
             <label for="inputAge" class="form-label">Edad</label>
             <input formControlName="age" type="text" [ngClass]="getClass('age')" class="form-control" id="inputAge">
             <div *ngIf="requiredAlert('age')" class="invalidInputText">Este campo es requerido</div>
-            <div *ngIf="addStudentForm.controls['age'].errors?.['pattern']" class="invalidInputText">Ingresar solamente números</div>
+            <div *ngIf="editStudentForm.controls['age'].errors?.['pattern']" class="invalidInputText">Ingresar solamente números</div>
         </div>
 
         <p>Condición de la/el Estudiante:</p>
         <div class="mb-3 form-check inputRadioContainer">
             <div>
-                <input formControlName="isActive" type="radio" class="form-check-input" name="isActive" id="active" value=true>
-                <label class="form-check-label" for="active">Activo</label>
+                <input formControlName="isActive" type="radio" class="form-check-input" name="isActive" id="true" value="true">
+                <label class="form-check-label" for="true">Activo</label>
             </div>
             <div>
-                <input formControlName="isActive" type="radio" class="form-check-input" name="isActive" id="notActive" value=false>
-                <label class="form-check-label" for="notActive">Pasivo</label>
+                <input formControlName="isActive" type="radio" class="form-check-input" name="isActive" id="false" value="false">
+                <label class="form-check-label" for="false">Pasivo</label>
             </div>
         </div>
 
@@ -86,7 +86,7 @@
         </div>
         
         <div class="container w-50 d-flex flex-column gap-2 p-3">
-            <button type="submit" [disabled]="addStudentForm.invalid" class="btn btn-success">Aceptar</button>
+            <button type="submit" [disabled]="editStudentForm.invalid" class="btn btn-success">Aceptar</button>
             <button class="btn btn-danger" (click)="closeModal()">Cancelar</button>
         </div>
 

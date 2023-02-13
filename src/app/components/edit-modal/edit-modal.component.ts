@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Student } from '../../models/student';
 import { StudentsService } from '../../services/students.service';
@@ -10,31 +10,35 @@ import { StudentsService } from '../../services/students.service';
   styleUrls: ['./edit-modal.component.css']
 })
 export class EditModalComponent {
-  addStudentForm : FormGroup;
+  editStudentForm : FormGroup;
   
   constructor(
     private dialogRef: MatDialogRef<EditModalComponent>,
     private studentService: StudentsService,
-    private dialog : MatDialog
+    private dialog : MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: Student 
   ){
    
+    let studentToEdit = this.data
     let regexOnlyNumbers : string = '^[0-9]+$'
     let controls: any = {
-      name : new FormControl('', [Validators.required]),
-      surname : new FormControl('',[Validators.required]),
-      id : new FormControl('',[Validators.required, Validators.pattern(regexOnlyNumbers)]),
-      age: new FormControl('',[Validators.required, Validators.pattern(regexOnlyNumbers)]),
-      isActive : new FormControl('',[Validators.required]),
-      gender : new FormControl('', [Validators.required]),
-      subject : new FormControl('', [Validators.required])
+      name : new FormControl(studentToEdit.name, [Validators.required]),
+      surname : new FormControl(studentToEdit.surname,[Validators.required]),
+      fileNumber : new FormControl(studentToEdit.fileNumber,[Validators.required, Validators.pattern(regexOnlyNumbers)]),
+      age: new FormControl(studentToEdit.age,[Validators.required, Validators.pattern(regexOnlyNumbers)]),
+      isActive : new FormControl(studentToEdit.isActive ? "true" : "false",[Validators.required]),
+      gender : new FormControl(studentToEdit.gender, [Validators.required]),
+      subject : new FormControl(studentToEdit.subject, [Validators.required])
     }
 
-    this.addStudentForm = new FormGroup(controls);
+    this.editStudentForm = new FormGroup(controls);
   }
  
+  students = this.studentService.getStudents();
+
   getClass(input: string): string{
   
-    if (this.addStudentForm.controls[input].valid) {
+    if (this.editStudentForm.controls[input].valid) {
       return 'validInput'
     }
 
@@ -42,14 +46,14 @@ export class EditModalComponent {
       case 'name':
       case 'surname':
 
-      if (this.addStudentForm.controls[input].touched && this.addStudentForm.controls[input].errors?.['required'] ) 
+      if (this.editStudentForm.controls[input].touched && this.editStudentForm.controls[input].errors?.['required'] ) 
       return 'invalidInput';
       break;
     
       case 'id':
       case 'age':
       
-      if (this.addStudentForm.controls[input].touched && this.addStudentForm.controls[input].errors?.['required'] || this.addStudentForm.controls[input].errors?.['pattern']) 
+      if (this.editStudentForm.controls[input].touched && this.editStudentForm.controls[input].errors?.['required'] || this.editStudentForm.controls[input].errors?.['pattern']) 
       return 'invalidInput';
       break;
 
@@ -59,25 +63,27 @@ export class EditModalComponent {
   }
 
   requiredAlert(input : string): boolean{
-    return this.addStudentForm.controls[input].errors?.['required'] && (this.addStudentForm.controls[input].dirty || this.addStudentForm.controls[input].touched)
+    return this.editStudentForm.controls[input].errors?.['required'] && (this.editStudentForm.controls[input].dirty || this.editStudentForm.controls[input].touched)
   }
 
 
-  addStudent(){
+  editStudent(){
     let newStudent : Student;
     let booleanValue : boolean;
-    this.addStudentForm.value.isActive === "true" ? booleanValue = true : booleanValue = false
+    let indexOfElement = this.students.indexOf(this.data)
+    this.editStudentForm.value.isActive === "true" ? booleanValue = true : booleanValue = false
     newStudent = {
-      name: this.addStudentForm.value.name,
-      surname: this.addStudentForm.value.name,
-      id: this.addStudentForm.value.id,
-      age: this.addStudentForm.value.age,
+      id: this.data.id,
+      name: this.editStudentForm.value.name,
+      surname: this.editStudentForm.value.surname,
+      fileNumber: this.editStudentForm.value.fileNumber,
+      age: this.editStudentForm.value.age,
       isActive: booleanValue,
-      gender: this.addStudentForm.value.gender,
-      subject: this.addStudentForm.value.subject
+      gender: this.editStudentForm.value.gender,
+      subject: this.editStudentForm.value.subject
     }
 
-    this.studentService.addStudent(newStudent)
+    this.studentService.editStudent(newStudent, indexOfElement)
     const dialogRef = this.dialog.closeAll()
   }
   

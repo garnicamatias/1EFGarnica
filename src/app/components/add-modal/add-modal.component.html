@@ -15,10 +15,10 @@
         </div>
         
         <div class="mb-3">
-            <label for="inputId" class="form-label">N° de Legajo</label>
-            <input formControlName="id" type="text" [ngClass]="getClass('id')" class="form-control" id="inputId">
-            <div *ngIf="requiredAlert('id')" class="invalidInputText">Este campo es requerido</div>
-            <div *ngIf="addStudentForm.controls['id'].errors?.['pattern']" class="invalidInputText">Ingresar solamente números</div>
+            <label for="inputFileNumber" class="form-label">N° de Legajo</label>
+            <input formControlName="fileNumber" type="text" [ngClass]="getClass('fileNumber')" class="form-control" id="inputFileNumber">
+            <div *ngIf="requiredAlert('fileNumber')" class="invalidInputText">Este campo es requerido</div>
+            <div *ngIf="addStudentForm.controls['fileNumber'].errors?.['pattern']" class="invalidInputText">Ingresar solamente números</div>
         </div>
 
         <div class="mb-3">
